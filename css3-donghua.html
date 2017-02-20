@@ -1,0 +1,223 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <meta content="telephone=no" name="format-detection" />
+    <script src="js/jquery-1.11.1.min.js"></script>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link rel="shortcut icon" href="images/01_small.jpg" type="image/x-icon" />
+
+    <title></title>
+    <style>
+        * {
+            font-size: 16px;
+        }
+
+        .div1 {
+            transition: 0.4s linear;
+            -webkit-transition: 0.4s linear;
+        }
+
+            .div1 > p {
+                font-size: 1.6rem;
+            }
+
+        .div2 {
+            margin: 20px auto;
+            display: inline-block;
+        }
+
+            .div2 > button {
+                background: red;
+                color: #fff;
+                padding: 10px 10px;
+                border: none;
+                transition: 0.4s linear;
+                -webkit-transition: 0.4s linear;
+                margin: 0px auto;
+                overflow: auto;
+                font-size: 1.6rem;
+                border-radius: 15px;
+                background: rgba(255,0,0,0);
+            }
+
+        .div3img {
+            background: #ff6a00;
+            color: #fff;
+            width: 50px;
+            height: 50px;
+            border-radius: 50px;
+            border: none;
+            right: 20px;
+            top: 20px;
+            position: absolute;
+        }
+
+        .span1, .span2 {
+            font-size: 1.3rem;
+            width: 16px;
+            display: inline-block;
+            margin-left: 20px;
+            overflow: auto;
+            transition: 0.4s linear;
+            -webkit-transition: 0.4s linear;
+            position: absolute;
+        }
+
+        .span2 {
+            margin-left: 250px;
+            color: #ff6a00;
+        }
+
+        .p1 {
+            font-size: 1.3rem;
+            transition: 0.4s linear;
+            -webkit-transition: 0.4s linear;
+            position: absolute;
+            bottom: 30px;
+            margin-left: 15px;
+        }
+
+        .p2 {
+            position: absolute;
+            bottom: 70px;
+            left: -40px;
+            color: rgba(0,0,0,0);
+            font-weight: bold;
+            transition: 0.8s linear;
+            -webkit-transition: 0.8s linear;
+        }
+
+        .put1, .put2 {
+            width: 150px;
+            height: 25px;
+            transition: 0.8s linear;
+            -webkit-transition: 0.8s linear;
+            border: 1px rgba(0,0,0,0) solid;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+
+        .li-1 li {
+            border: 1px #ff0000 solid;
+            padding: 1px 3px;
+            display: block;
+            margin-left: 80px;
+            transition: 0.8s linear;
+            -webkit-transition: 0.8s linear;
+            margin-top:3px;
+            font-size:1.3rem;
+        }
+    </style>
+</head>
+<body>
+    <div style="position:relative;overflow:auto">
+        <div class="div1">
+            <p style="display:block;margin-left:10px;">你好</p>
+            <p style="display:block;margin-left:25px;">我好</p>
+            <p style="display:block;margin-left:40px;">大家好</p>
+        </div>
+        <div style="text-align:center;height:130px;">
+            <div class="div2">
+                <button id="btn"> 你好</button>
+            </div>
+        </div>
+        <img class="div3img" src="images/01.jpg" />
+        <div style="height:250PX;">
+            <span class="span1">我是好人天天向上</span>
+            <span class="span2">我是坏人天天向下</span>
+        </div>
+        <div>
+            <p class="p2">你是猪么</p>
+            <p class="p1">广西.南疆</p>
+        </div>
+        <div style="text-align:center">
+            <input class="put1" placeholder="输入用户名" />
+        </div>
+        <div style="text-align:center;margin-top:5px;">
+            <input class="put2" placeholder="输入密码" />
+
+        </div>
+        <div class="li-1" style="margin-top:50px">
+            <ul>
+                <li>你好!</li>
+                <li>我好!</li>
+                <li>打家好!</li>
+                <li>才是真的好!</li>
+                <li>广州好滴!</li>
+                <li>你好!</li>
+                <li>我好!</li>
+                <li>打家好!</li>
+                <li>才是真的好!</li>
+                <li>广州好滴!</li>
+            </ul>
+        </div>
+    </div>
+    <script>
+
+        $(document).ready(function () {
+            $(".put1").css("width", "200px");
+            $(".put1").css("height", "30px");
+
+            $(".p2").css("left", "10px");
+            $(".p1").css("bottom", "50px");
+            $(".span1").css("margin-left", "270px");
+            $(".span2").css("margin-left", "30px");
+            $(".div1").css("margin-left", "50px");
+            $(".put1").css("border", "1px rgba(0,0,0,1) solid");
+            setTimeout(
+             function () {
+                 $(".put2").css("width", "200px");
+                 $(".put2").css("border", "1px rgba(0,0,0,1) solid");
+                 $(".put2").css("height", "30px");
+             }, 400);
+
+            setTimeout(
+                function () {
+                    $(".div2>button").css("background", "rgba(255,0,0,1)");
+                    $(".div2>button").css("padding", "30px 50px");
+                    $(".div2>button").css("font-size", "3rem");
+
+                }, 1000);
+        });
+        $(document).ready(function () {
+            var a1 = 1;
+            var a2 = 0.0;
+            var a3 = setInterval(
+                  function () {
+                      $(".p2").css("color", "rgba(0,0,0," + a2 + ")");
+                      a2 = a2 + 0.1;
+                      if (a2 == 1)
+                          clearInterval(a3);
+                  }, 100);
+
+            var a4 = setInterval(
+                    function () {
+                        $(".div3img").css("transform", "rotate(" + a1 + "deg) scale(1.2)");
+                        a1 += 0.6;
+                        if (a1 >= 360) {
+                            a1 = 0;
+                        }
+                    }, 5);
+
+        });
+
+        $(document).ready(
+            function () {
+
+                $(".li-1 li").css("font-size", "1.6rem")
+                $(".li-1 li").css("padding","5px 10px")
+                var a = $(".li-1 li:first-child");
+                var c = setInterval(
+                    function () {
+                        $(a).css("margin-left", "10px");
+                        a = a.next();
+                        if (a.text() == "") {
+                            clearInterval(c);
+                        }
+                    }, 50);
+            });
+    </script>
+</body>
+</html>

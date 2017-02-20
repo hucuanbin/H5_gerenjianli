@@ -1,0 +1,348 @@
+﻿<!DOCTYPE html>
+<html>
+</pre>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta name="format-detection" content="telephone=no" />
+    <title>一心两用</title>
+    <style>
+        html {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: "Microsoft YaHei";
+            font-size: 14px;
+            color: #333;
+        }
+
+        .center {
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .container {
+            width: 100%;
+            min-width: 320px;
+            max-width: 640px;
+            overflow: hidden;
+            margin: 100px auto;
+        }
+
+        #btnStart {
+            position: absolute;
+            top: 40%;
+            left: 50%;
+            width: 200px;
+            height: 60px;
+            line-height: 60px;
+            margin-left: -100px;
+            background: #f60;
+            z-index: 99;
+            font-size: 28px;
+            color: #fff;
+            text-align: center;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+            #btnStart:hover {
+                background: #f74b08;
+            }
+
+        .road-box {
+            width: 100%;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .road {
+            width: 25%;
+            height: 500px;
+            float: left;
+            color: #fff;
+            position: relative;
+            cursor: pointer;
+        }
+
+        #road1 {
+            background: #eaeaea;
+        }
+
+        #road2 {
+            background: #d8d8d8;
+        }
+
+        #road3 {
+            background: #eaeaea;
+        }
+
+        #road4 {
+            background: #d8d8d8;
+        }
+
+        .block {
+            position: absolute;
+            top: -20%;
+            left: 50%;
+            margin-left: -20px;
+            width: 40px;
+            height: 40px;
+            background: url(http://denghao.me/wp-content/uploads/2015/05/block.gif) center no-repeat;
+            background-size: 100%;
+        }
+
+        .middle-line {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 4px;
+            height: 500px;
+            margin-left: -2px;
+            background: yellow;
+            z-index: 98;
+        }
+
+        .side-line {
+            position: absolute;
+            top: 0;
+            width: 3px;
+            height: 500px;
+            z-index: 98;
+        }
+
+        .line-L {
+            left: 0;
+            border-left: 3px dashed yellow;
+        }
+
+        .line-R {
+            right: 0;
+            border-right: 3px dashed yellow;
+        }
+
+        @-webkit-keyframes line-move {
+            0% {
+                top: 0;
+            }
+
+            100% {
+                top: 10px;
+            }
+        }
+
+        #car1, #car2 {
+            position: absolute;
+            bottom: 0;
+            margin-left: -20px;
+            width: 40px;
+            height: 40px;
+            background-size: 100%;
+        }
+
+        #car1 {
+            background: url(http://denghao.me/wp-content/uploads/2015/05/car1.gif) center no-repeat;
+        }
+        .hongbao{
+            background:url(images/hongbao.png) !important;
+        }
+        #car2 {
+            background: url(http://denghao.me/wp-content/uploads/2015/05/car2.gif) center no-repeat;
+        }
+
+        .pos0 {
+            left: 12.5%;
+        }
+
+        .pos1 {
+            left: 37.5%;
+        }
+
+        .pos2 {
+            left: 62.5%;
+        }
+
+        .pos3 {
+            left: 87.5%;
+        }
+
+        #score {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 60px;
+            font-size: 46px;
+            text-align: center;
+            z-index: 98;
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="center">一心两用</h1><h4 class="center"><a target="_blank" href="http://denghao.me">邓浩</a> 2015.5</h4>
+        <div id="btnStart">开 始</div>
+        <div class="road-box">
+            <div class="middle-line"></div>
+            <div class="side-line line-L"></div>
+            <div class="side-line line-R"></div>
+            <div class="road" id="road1">
+                <div class="block" id="block1"></div>
+            </div>
+            <div class="road" id="road2">
+                <div class="block" id="block2"></div>
+            </div>
+            <div class="road" id="road3">
+                <div class="block" id="block3"></div>
+            </div>
+            <div class="road" id="road4">
+                <div class="block" id="block4"></div>
+            </div>
+            <div id="car1" class="pos0"></div>
+            <div id="car2" class="pos2"></div>
+            <div id="score">0</div>
+        </div>
+
+    </div>
+    <script src="http://denghao.me/js/jquery.min.js"></script>
+    <script>
+        $(function () {
+            var car1 = $("#car1"),
+            //car2 = $("#car2"),
+            road = $(".road"),
+            block = $(".block"),
+            block1 = $("#block1"),
+            block2 = $("#block2"),
+            //block3 = $("#block3"),
+            //block4 = $("#block4"),
+            score = $("#score"),
+            blockHeight = block.height(),
+            currRoadIndex1 = 0,
+            //currRoadIndex2 = 2,
+            speed = 20,
+            para = 0.6,
+            btnStart = $("#btnStart"),
+            gameTimer,
+            initScore = 0,
+            n1 = 0,
+            n2 = -50,
+            n3 = -100,
+            n4 = -50
+            miao = 0.1,
+            pan_ding = 1,
+            jin = 1;
+            $(".side-line").css('-webkit-animation', 'line-move 0.1s linear infinite');
+
+            btnStart.on('click', function (event) {
+                event.preventDefault();
+                $(this).hide();
+                //         gameTimer = setInterval(blockFall, speed);
+                setTimeout(blockFall, 20);
+            });
+
+            road.on('click', function (event) {
+                var index = road.index($(this)); //赛道索引
+                if (index < 2) {
+                    car1.attr('class', 'pos' + index);
+                    currRoadIndex1 = index;
+                }
+              
+                //else {
+                //    car2.attr('class', 'pos' + index);
+                //    currRoadIndex2 = index;
+                //}
+            });
+
+            function blockFall() {
+                var rnd = -1 * Math.ceil(Math.random() * 30);
+                if (n1 > 100) {
+                    n1 = rnd;
+                    var a = (Math.random() * 1100) % 10;
+                    alert(a);
+                    block1.attr("data-data", a);
+                    if (a <= 4) {
+                        block1.addClass("hongbao");
+                    }
+                    else {
+                        block1.removeClass("hongbao");
+                    }
+                }
+                else {
+                    n1 = n1 + para;
+                  
+                };
+                if (n2 > 100) {
+                    n2 = rnd;
+                    var a = (Math.random() * 1100) % 10;
+                    alert(a);
+                    block2.attr("data-data", a);
+                    if (a <= 4) {
+                        block2.addClass("hongbao");
+                    }
+                    else {
+                        block2.removeClass("hongbao");
+                    }
+                }
+                else {
+                    n2 = n2 + para;
+                  
+                };
+                //if (n3 > 100) { n3 = rnd } else { n3 = n3 + para };
+                //if (n4 > 100) { n4 = rnd } else { n4 = n4 + para };
+                block1.css('top', n1 + '%');
+                block2.css('top', n2 + '%');
+                //block3.css('top', n3 + '%');
+                //block4.css('top', n4 + '%');
+                var car1Top = car1.position().top;
+                //var car2Top = car2.position().top;
+                var block1Top = block.eq(currRoadIndex1).position().top + blockHeight;
+                //var block2Top = block.eq(currRoadIndex2).position().top + blockHeight;
+                var Distance1 = car1Top - block1Top;
+                //var Distance2 = car2Top - block2Top;
+
+                if (
+                    (Distance1 < 0 && Distance1 > (-blockHeight * 2))
+                    //||
+                    //(Distance2 < 0 && Distance2 > (-blockHeight * 2))
+                    ) {
+                    jin = 2;
+                    gameOver();
+                }
+                else {
+                    jin = 1;
+                    pan_ding = 1;
+                }
+                initScore++;
+                score.text(initScore);
+                console.log(speed);
+                if (initScore == 1000) {
+                    road.unbind();
+                    clearInterval(gameTimer);
+                    alert("结束！");
+                    return;
+                }
+                setTimeout(blockFall, speed);
+            };
+
+            function gameOver() {
+                if (jin == 2 && pan_ding == 1) {
+                    $(".side-line").css('-webkit-animation', 'line-move ' + (miao + 0.1) + 's linear infinite');
+                    miao += 0.1;
+                    speed += 20;
+                    pan_ding = 2;
+                }
+                //$(".side-line").css('-webkit-animation', '0');
+                //road.unbind();
+                //clearInterval(gameTimer);
+                //alert("撞车了！");
+            }
+
+        })
+    </script>
+</body>
+</html>
